@@ -36,7 +36,7 @@ jobs:
         id: image-info
         env:
           DOCKER_HUB_REPO: readytodev/5team-front
-          IMAGE_TAG: \${{ steps.image.outputs.version }}
+          IMAGE_TAG: ${{ steps.image.outputs.version }}
         run: |
           echo "::set-output name=docker_hub_repo::$DOCKER_HUB_REPO"
           echo "::set-output name=image_tag::$IMAGE_TAG"
@@ -57,7 +57,7 @@ jobs:
       - name: Update Kubernetes resources
         run: |
           cd k8s-manifest-repo/overlays/dev/
-          kustomize edit set image readytodev/5team-front=readytodev/5team-front:\${{ steps.image-info.outputs.image_tag }}
+          kustomize edit set image readytodev/5team-front=readytodev/5team-front:${{ steps.image-info.outputs.image_tag }}
           cat kustomization.yaml
 
       - name: Commit files
